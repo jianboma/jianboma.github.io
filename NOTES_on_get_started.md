@@ -15,4 +15,7 @@ If you want to add projects, add it in `_pages/projects.md`. I explicitly moved 
 For editing cv, the content is edited in [cv.yaml](_data/cv.yml).
 
 ## editing about me
-The `About` is 
+The `About` is [about.md](_pages/about.md).
+
+## change theme color
+https://github.com/alshedivat/al-folio/tree/master?tab=readme-ov-file#theming

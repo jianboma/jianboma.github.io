@@ -25,6 +25,24 @@ In self-attention mechanism, the Key $$\mathbf{k}$$, Query $$\mathbf{q}$$ and Va
 \end{equation}
 </p>
 
+It used the same idea in Attention Free Transformer (AFT), the alternative formulation is,
+<p>
+\begin{equation}
+\label{eq:aft-attn}
+\mathrm{Attn^{+}(W, K, V)}_{t}= \frac{\sum_{i=1}^{T} e^{w_{t,i}+ k_{i}}v_{i}}{\sum_{i=1}^{T} e^{w_{t,i}+ k_{i}}},
+\end{equation}
+</p>
+where $$w_{t,i} \in R^{T \times T}$$ is kind of offset learned during training and each $$w_{t,i}$$ is a number.
+
+The RWKV makes it simpler, instead of learn the matrix offset in AFT, it learns a vector of $$d$$ dimensions, where $$d$$ is the number of channel (I suppose they mean the dimension of input vetor of RWKV). It then multiply the relative position, makes the offset is expressed as,
+<p>
+\begin{equation}
+\label{eq:rwkv-attn-offset}
+w_{t,i}=-(t-i)w,
+\end{equation}
+</p>
+where $$ w \in ({R_{\geqslant 0}}^{d}) $$. This means the learned parameter in the offset is a vector rather than a matrix in AFT.
+
 ### Background
 They presented the RNNs, especially LSTMs.
 
@@ -42,6 +60,19 @@ The RWKV used the same mechanism of AFT, but instead of linear basise, a decayed
 </details>
 </p>
 
+Some background from AFT. In AFT, there are still Query, Key and Value matrix. Instead of using dot-product between queries and keys, it learns an offset matrix and add an offset scaler to keys to form the attention weights. <mark>The computational advantage then relies on the removal of dot-product, which seems to be not that appealing.</mark>
+
+<p>
+<details>
+  <summary>Details in paper</summary>
+<div class="col-sm mt-3 mt-md-0">
+    {% include figure.html path="assets/img/1Paper-7D/rwkv/aft-attn-eq-explain.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+</div>
+<div class="col-sm mt-3 mt-md-0">
+    {% include figure.html path="assets/img/1Paper-7D/rwkv/aft-attn-eq-illustration-fig.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+</div>
+</details>
+</p>
 ## D2
 
 ### Time mixing and channel mixing

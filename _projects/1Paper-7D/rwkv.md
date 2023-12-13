@@ -58,3 +58,20 @@ This suggests that all of the $$\mathbf{k}$$, $$\mathbf{v}$$ are interpolated by
 </div>
 </details>
 </p>
+
+## D3
+The time-mixing block equation is as below,
+<div class="col-sm mt-3 mt-md-0">
+    {% include figure.html path="assets/img/1Paper-7D/rwkv/rwkv-time-mixing-eqs.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+</div>
+<div class="col-sm mt-3 mt-md-0">
+    {% include figure.html path="assets/img/1Paper-7D/rwkv/rwkv-channel-mixing-eqs.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+</div>
+This $$wkv_{t}$$ is summation like attention mechanism. Each receptance $$r_{t}$$, key $$k_{t}$$ is interpolation of current time step and previous time step.
+
+**Qeustion**: 
+- what is $$u$$ in equation 14?
+- Why are equation 16-18 called `channel-mixing` ?
+- What are the intuition behind the `time-mixing` and followed by `channel-mixing`?
+- How to make them recursively running during inference?
+

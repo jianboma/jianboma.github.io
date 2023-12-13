@@ -12,7 +12,7 @@ horizontal: false
 ## 1Paper-7D
 In this category, I am going to read a paper in detail over a week. 
 
-在这个类别里，我将在周的时间里详细的阅读一篇论文。详细记录理解，问题和想法。
+在这个类别里，我将在一周的时间里详细的阅读一篇论文。详细记录理解，问题和想法。
 
 <!-- pages/projects.md -->
 <div class="projects">

@@ -1,20 +1,62 @@
 ---
-layout: page
+layout: distill
 title: Read `RWKV Reinventing RNNs for the Transformer Era`
 description: the icon is from https://wiki.rwkv.com/, all rights reserves to its onwer.
 img: assets/img/1Paper-7D/rwkv/rwkv-icon.png
 importance: 1
 category: 1Paper-7D
+
+bibliography: for_rwkv.bib
+
+# Optionally, you can add a table of contents to your post.
+# NOTES:
+#   - make sure that TOC names match the actual section names
+#     for hyperlinks within the post to work correctly.
+#   - we may want to automate TOC generation in the future using
+#     jekyll-toc plugin (https://github.com/toshimaru/jekyll-toc).
+toc:
+  - name: D1
+    subsections:
+      - name:  TL;DR
+      - name: Quadratic complexity
+      - name: Background
+  - name: D2
+    subsections:
+    - name: Time mixing and channel mixing
+  - name: D3
+  - name: D5
+  - name: D6
+
+
+# Below is an example of injecting additional post-specific styles.
+# If you use this post as a template, delete this _styles block.
+_styles: >
+  .fake-img {
+    background: #bbb;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 12px;
+  }
+  .fake-img p {
+    font-family: monospace;
+    color: white;
+    text-align: left;
+    margin: 12px 0;
+    text-align: center;
+    font-size: 16px;
+  }
+
 ---
 
 # RWKV: Reinventing RNNs for the Transformer Era
-Paper link: https://arxiv.org/abs/2305.13048
-
+Paper link: [https://arxiv.org/abs/2305.13048](https://arxiv.org/abs/2305.13048)<br>
+**Homepage**: [https://wiki.rwkv.com/](https://wiki.rwkv.com/) <br>
+There are many projects inside the homepage.
 
 ## D1
 
 ### TL;DR
-Transformer suffers from memory and computational complexity that scales quadratically with sequence length. Recurrent neural networks (RNNs) has linear scaling in memory and computational requirements but the recurrent mechanism prevents the parallelization and scalability. The proposed Receptance Weighted Key Value (RWKV) intended to combine the efficient parallelization and scalability and reserve the efficient inference of RNNs.
+Transformer suffers from memory and computational complexity that scales quadratically with sequence length. Recurrent neural networks (RNNs) has linear scaling in memory and computational requirements but the recurrent mechanism prevents the parallelization and scalability. The proposed Receptance Weighted Key Value (RWKV) <d-cite key="peng2023rwkv"></d-cite> intended to combine the efficient parallelization and scalability and reserve the efficient inference of RNNs.
 
 ### Quadratic complexity
 In self-attention mechanism, the Key $$\mathbf{k}$$, Query $$\mathbf{q}$$ and Value $$\mathbf{v}$$ are of length $$\mathrm{T}$$. The attention operator can be written as:
@@ -101,8 +143,29 @@ The time-mixing block equation is as below,
 This $$wkv_{t}$$ is summation like attention mechanism. Each receptance $$r_{t}$$, key $$k_{t}$$ is interpolation of current time step and previous time step.
 
 **Qeustion**: 
-- what is $$u$$ in equation 14?
-- Why are equation 16-18 called `channel-mixing` ?
-- What are the intuition behind the `time-mixing` and followed by `channel-mixing`?
-- How to make them recursively running during inference?
+1. what is $$u$$ in equation 14? <br>
+2. Why are equation 16-18 called `channel-mixing` ?<br>
+3. What are the intuition behind the `time-mixing` and followed by `channel-mixing`?<br>
+4. How to make them recursively running during inference?
+  <details>
+  <summary>answer in paper</summary>
+  Q4:
+  <div class="col-sm mt-3 mt-md-0">
+  An interesting perspective in paper, time-mixing block as an RNN cell.
+    {% include figure.html path="assets/img/1Paper-7D/rwkv/rwkv-as-rnn-cell.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+  </div>
+  </details>
+<br>
+
+## D5
+Questions:
+- Why can the `RWKV` be trained parallelly but not RNNs? What makes `RWKV` special? Does this result in some kind of trade-off?
+  - Equation 11-13, equation 16-17 do not contain non-linear operator, which means $$\mu_{r}, \mu_{k} $$ and $$ \mu_{v}$$ are parameters that can be learned or pre-defined as hyper-parameters. **Does not this like a filter in CNNs**? As there is no non-linearity, the operators can be merged. Additionally, there is no contextual state, e.g. `c`, that is updated for each steps.
+
+## D6
+Try some codings.
+
+Both following are good places to start with [https://ben.bolte.cc/rwkv-model](https://ben.bolte.cc/rwkv-model), [https://johanwind.github.io/2023/03/23/rwkv_details.html](https://johanwind.github.io/2023/03/23/rwkv_details.html).
+
+The one from Ben's blog can be found on his github page [https://github.com/codekansas/rwkv](https://github.com/codekansas/rwkv).
 

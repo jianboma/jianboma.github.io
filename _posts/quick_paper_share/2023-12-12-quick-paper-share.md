@@ -5,7 +5,7 @@ date: 2023-12-12
 description: a collection of papers without careful reading
 tags: quick_paper_share
 categories: paper_read
-giscus_comments: true
+giscus_comments: false # true
 related_posts: false
 related_publications: 
 ---
@@ -43,7 +43,15 @@ This post will collect papers that appears to be interesting, but without carefu
   </code><br> -->
 </details>
 
-
+[Efficiently Modeling Long Sequences with Structured State Spaces](https://arxiv.org/pdf/2111.00396.pdf)<br>
+```
+@article{gu2021efficiently,
+  title={Efficiently modeling long sequences with structured state spaces},
+  author={Gu, Albert and Goel, Karan and R{\'e}, Christopher},
+  journal={arXiv preprint arXiv:2111.00396},
+  year={2021}
+}
+```
 
 
 

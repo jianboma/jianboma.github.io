@@ -19,3 +19,5 @@ The `About` is [about.md](_pages/about.md).
 
 ## change theme color
 https://github.com/alshedivat/al-folio/tree/master?tab=readme-ov-file#theming
+
+The backround color can be changed as well. `--global-code-bg-color` in [_themes.scss](_sass/_themes.scss) is used to change the background color of highlighed content. I've changed it to green-color-lime from pink.

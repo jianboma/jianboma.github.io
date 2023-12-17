@@ -15,9 +15,9 @@ bibliography: for_rwkv.bib
 #   - we may want to automate TOC generation in the future using
 #     jekyll-toc plugin (https://github.com/toshimaru/jekyll-toc).
 toc:
+  - name:  TL;DR
   - name: D1
     subsections:
-      - name:  TL;DR
       - name: Quadratic complexity
       - name: Background
   - name: D2
@@ -53,10 +53,16 @@ Paper link: [https://arxiv.org/abs/2305.13048](https://arxiv.org/abs/2305.13048)
 **Homepage**: [https://wiki.rwkv.com/](https://wiki.rwkv.com/) <br>
 There are many projects inside the homepage.
 
-## D1
+## TL;DR
+Transformer suffers from memory and computational complexity that scales quadratically with sequence length. Recurrent neural networks (RNNs) has linear scaling in memory and computational requirements but the recurrent mechanism prevents the parallelization and scalability. The proposed Receptance Weighted Key Value (RWKV) <d-cite key="peng2023rwkv"></d-cite> intended to combine the efficient parallelization and scalability and reserve the efficient inference of RNNs. The motivation, implementation and application is predominantly in Large Language Model (LLMs). There is a community that has trained several LLMs. Those models are public available. More information can be found in there [homepage](https://wiki.rwkv.com/). **I think this is good trend, which makes the techniques for LLM accessible for more**.
 
-### TL;DR
-Transformer suffers from memory and computational complexity that scales quadratically with sequence length. Recurrent neural networks (RNNs) has linear scaling in memory and computational requirements but the recurrent mechanism prevents the parallelization and scalability. The proposed Receptance Weighted Key Value (RWKV) <d-cite key="peng2023rwkv"></d-cite> intended to combine the efficient parallelization and scalability and reserve the efficient inference of RNNs.
+The core design of the RWKV relies on the equation (14) of this paper <d-cite key="peng2023rwkv"></d-cite>, which can be expressed recursively. The inference part can take advantange of the recursive mechanism and produce next state from the current state (a property of RNNs), without re-compute each state from scratch.
+
+The interpolation equations (11-13) are not that intutitive for me. Authors may can give more explanation. It makes the current $$\mathbf{r}$$, $$\mathbf{k}$$, and $$\mathbf{v}$$ aware of both current and previous input. A natual question is why is `two` steps. Is it necessary to have two steps as the equation (14) has a mechanism to mix different steps.
+
+This is an interesting paper that collaborated with a large amount of authors. The techniques are envolving very fast. The line between research and engineering in this field are more likely blurred. The mechanism of co-evolving shortened the period from `ideas` to `products`. 
+
+## D1
 
 ### Quadratic complexity
 In self-attention mechanism, the Key $$\mathbf{k}$$, Query $$\mathbf{q}$$ and Value $$\mathbf{v}$$ are of length $$\mathrm{T}$$. The attention operator can be written as:
@@ -102,7 +108,7 @@ The RWKV used the same mechanism of AFT, but instead of linear basise, a decayed
 </details>
 </p>
 
-Some background from AFT. In AFT, there are still Query, Key and Value matrix. Instead of using dot-product between queries and keys, it learns an offset matrix and add an offset scaler to keys to form the attention weights. <mark>The computational advantage then relies on the removal of dot-product, which seems to be not that appealing.</mark>
+Some background from AFT. In AFT, there are still Query, Key and Value matrices. Instead of using dot-product between queries and keys, it learns an offset matrix and add an offset scaler to keys to form the attention weights. <mark>The computational advantage then relies on the removal of dot-product, which seems to be not that appealing.</mark>
 
 <p>
 <details>
@@ -163,7 +169,7 @@ Questions:
   - Equation 11-13, equation 16-17 do not contain non-linear operator, which means $$\mu_{r}, \mu_{k} $$ and $$ \mu_{v}$$ are parameters that can be learned or pre-defined as hyper-parameters. **Does not this like a filter in CNNs**? As there is no non-linearity, the operators can be merged. Additionally, there is no contextual state, e.g. `c`, that is updated for each steps.
 
 ## D6
-Try some codings.
+Try some codes.
 
 Both following are good places to start with [https://ben.bolte.cc/rwkv-model](https://ben.bolte.cc/rwkv-model), [https://johanwind.github.io/2023/03/23/rwkv_details.html](https://johanwind.github.io/2023/03/23/rwkv_details.html).
 

@@ -46,6 +46,12 @@ layout: default
             <h2><a href="{{ '/news/' | relative_url }}" style="color: inherit;">news</a></h2>
             {%- include news.html limit=true %}
           {%- endif %}
+          
+          <!-- Latest posts -->
+          {% if page.latest_projects -%}
+            <h2><a href="{{ '/projects/' | relative_url }}" style="color: inherit;">latest projects</a></h2>
+            {%- include latest_projects.html %}
+          {%- endif %}
 
           <!-- Latest posts -->
           {% if page.latest_posts -%}

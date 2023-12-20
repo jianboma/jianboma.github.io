@@ -2,7 +2,7 @@
 layout: page
 title: Projects
 permalink: /projects/
-description: Coming soon ...
+description: Describe projects
 nav: true
 nav_order: 2
 display_categories: [1Paper-7D, work, fun]

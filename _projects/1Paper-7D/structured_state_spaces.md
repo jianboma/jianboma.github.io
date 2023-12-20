@@ -1,0 +1,127 @@
+---
+layout: distill
+title: Read `efficiently modeling long sequences with stuctured state spaces`
+description: 
+img: assets/img/1Paper-7D/ssm_long_sequence/ssm-overview.png
+importance: 1
+category: 1Paper-7D
+bibliography: for_sssm_long_sequence.bib
+
+# Optionally, you can add a table of contents to your post.
+# NOTES:
+#   - make sure that TOC names match the actual section names
+#     for hyperlinks within the post to work correctly.
+#   - we may want to automate TOC generation in the future using
+#     jekyll-toc plugin (https://github.com/toshimaru/jekyll-toc).
+toc:
+  - name: TL;DR
+  - name: D1
+    subsections:
+      - name: State Space Model
+  - name: D2
+    subsections:
+    - name: HiPPO
+    - name: Discrete-time SSM
+  # - name: D3
+  # - name: D5
+  # - name: D6
+
+
+# Below is an example of injecting additional post-specific styles.
+# If you use this post as a template, delete this _styles block.
+_styles: >
+  .fake-img {
+    background: #bbb;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 12px;
+  }
+  .fake-img p {
+    font-family: monospace;
+    color: white;
+    text-align: left;
+    margin: 12px 0;
+    text-align: center;
+    font-size: 16px;
+  }
+
+---
+
+# Efficiently modeling long sequences with structured state spaces
+Paper link: [https://arxiv.org/abs/2111.00396](https://arxiv.org/abs/2111.00396)<br>
+**Homepage**: [https://github.com/state-spaces/s4](https://github.com/state-spaces/s4) <br>
+
+## TL;DR
+TBC
+
+<details>
+<summary>some logs</summary>
+I think there are still more motivations and insights of the proposed the SSM that can be digged. How is it linked with the neural network and deep learning should be explored more. At least at this stage (reading this paper and relevant papers) I do not have a good understanding about the SSM and its link to neural networks.
+
+The connection between continuous-time SSM to discrete-time SSM, trade-off, limitations, properties are assumed to be discussed in previous literatures, such as this one <d-cite key="tustin1947method"></d-cite> cited in paper. But it may not be that critical.
+
+</details>
+
+## D1
+
+This is a well-written paper. I believe it can be used as an good example for scientific writing. It is worth analysing the structure when comes to writing a paper. Even though many details are quite hard to understand and need more readings of other related materials, the essence of this paper is well emphasized to grasp.
+
+Fund the relavent papers from the same group are [Combining recurrent, convolutional, and continuous-time models with linear state space layers](https://proceedings.neurips.cc/paper_files/paper/2021/file/05546b0e38ab9175cd905eebcc6ebb76-Paper.pdf) <d-cite key="gu2021combining"></d-cite> (which proposed the LSSL), and [Hippo: Recurrent memory with optimal polynomial projections](https://proceedings.neurips.cc/paper/2020/file/102f0bb6efb3a6128a3c750dd16729be-Paper.pdf) <d-cite key="gu2020hippo"></d-cite> (which proposed the HiPPO). For application, the one [It’s raw! audio generation with state-space models](https://proceedings.mlr.press/v162/goel22a/goel22a.pdf)<d-cite key="goel2022s"></d-cite> is a very interesting one to read.
+
+
+### State Space Model
+The State Space Models are used in many places. For example, it has been extensively explored in control theory. More read regarding to SSM is needed in order to understand more.
+
+The SSM starts as follow, 
+<p>
+\begin{equation}
+\label{eq:ssm}
+  \begin{split}
+    x^{'}(t)=\mathbf{A}x(t)+\mathbf{B}u(t) \\
+    y(t)=\mathbf{C}x(t)+\mathbf{D}u(t)
+  \end{split}
+\end{equation}
+</p>
+
+As stated in Section 2.1, 
+> SSMs are broadly used in many scientific disciplines and related to latent state models such as Hidden Markov Models (HMM). Our goal is to simply use the SSM as a black-box representation in a deep sequence model, where A, B, C, D are parameters learned by gradient descent.
+
+<mark>An interesting question to ask is how is the SSM related to HMM. How the parameters are trained with gradient descent.</mark> But this is not quite relavent to this paper.
+
+## D2
+
+### HiPPO
+The HiPPO<d-cite key="gu2020hippo"></d-cite> was proposed as the vanillar SSM performs very poorly when it is directly applied in the neural networks naively. There is more details about the HiPPO and this paper introduced the core aspect of it. 
+
+Instead of ramdonly generating the initial point of $$ \mathbf{A} $$ in Eq. $$\eqref{eq:ssm} $$, it is specified as described in the paper as follow,
+<div class="col-sm mt-3 mt-md-0">
+    {% include figure.html path="assets/img/1Paper-7D/ssm_long_sequence/ssm-hippo-matrix.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+</div>
+
+The importance of this matrix is interesting, need more reading of the HiPPO paper to get more. But the performance is interesting stated in this paper as,
+> For example, the LSSL (<mark><d-cite key="gu2021combining"></d-cite> I added</mark>) found that simply modifying an SSM from a random matrix $$\mathbf{A}$$ to equation (2) improved its performance on the sequential MNIST benchmark from 60% to 98%.
+
+### Discrete-time SSM
+
+This is typical in digital signal processing that converts continuous-time signal to discrete-time signal. Usually there will be a sampling rate $$Fs$$ and it's associated step size $$\Delta$$. There shall have many literatures to explore the topic converting continuous-time SSM to discrete-time SSM. This paper gives rough idea and shows the equations after the discretization. <mark>I assume the discussion the connection between continuous-time SSM to discrete-time SSM, trade-off, limitations, properties are discussed in previous literatures, such as this one <d-cite key="tustin1947method"></d-cite> cited in paper.</mark>
+
+<details>
+<summary>A question</summary>
+An apect is that if the HiPPO matrix and its theoretical analysis are operated in continuous-time domain? If not, why does not the author first write the `discrete-time SSM` and then `HiPPO`. More details needed.
+</details>
+The Eq. $$\eqref{eq:ssm}$$ becomes,
+<p>
+\begin{equation}
+\label{eq:discrete-time-ssm}
+  \begin{split}
+      &x_{k}= \bar{\mathbf{A}} x_{k-1} + \bar{\mathbf{B}}u_{k}  \quad \bar{\mathbf{A}}=(\mathbf{I} - \Delta /2 \cdot \mathbf{A})^{-1}(\mathbf{I} + \Delta /2 \cdot \mathbf{A})  \\
+      &y_{k }= \bar{\mathbf{A}} x_{k} \quad \quad \bar{\mathbf{B}}=(\mathbf{I} - \Delta /2 \cdot \mathbf{A})^{-1} \Delta \mathbf{B} \quad \bar{\mathbf{C}}=\mathbf{C}.
+  \end{split}
+\end{equation}
+</p>
+
+**Note that $$ \mathbf{D}u(t) $$ is omitted for simplicity.**
+>the state equation is now a recurrence in $$x_{k}$$, allowing the discrete SSM to be computed like an RNN. Concretely, $$ x_{k} \in \mathbb{R}^{N} $$ can be viewed as a hidden state with transition matrix $$\mathbf{A} $$.
+
+<!-- ### Convolutional representation -->
+

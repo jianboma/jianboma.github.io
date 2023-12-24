@@ -22,7 +22,10 @@ toc:
     subsections:
     - name: HiPPO
     - name: Discrete-time SSM
-  # - name: D3
+  - name: D3
+    subsections:
+    - name: Convolutional representation
+    - name: S4 algorithms
   # - name: D5
   # - name: D6
 
@@ -52,19 +55,21 @@ Paper link: [https://arxiv.org/abs/2111.00396](https://arxiv.org/abs/2111.00396)
 **Homepage**: [https://github.com/state-spaces/s4](https://github.com/state-spaces/s4) <br>
 
 ## TL;DR
-TBC
+This is a well-written paper. I believe it can be used as an good example for scientific writing. It is worth analysing the structure when comes to writing a paper. Even though many details are quite hard to understand and need more readings of other related materials, the essence of this paper is well emphasized to grasp.
+
+Authors proposed an efficient sequence modeling method called Structured State Spaces Model (S3 model), which inspired from state spaces model. The abstract of the paper capture the essence of the paper and directly quoted here,
+> A promising recent approach proposed modeling sequences by simulating the fundamental state space model (SSM) $$x^{'}(t) = Ax(t) + Bu(t)$$, $$y(t) = Cx(t) + Du(t)$$, and showed that for appropriate choices of the state matrix $$A$$, this system could handle long-range dependencies mathematically and empirically. However, this method has prohibitive computation and memory requirements, rendering it infeasible as a general sequence modeling solution. We propose the Structured State Space (S4) sequence model based on a new parameterization for the SSM, and show that it can be computed much more efficiently than prior approaches while preserving their theoretical strengths. Our technique involves conditioning A with a low-rank correction, allowing it to be diagonalized stably and reducing the SSM to the well-studied computation of a Cauchy kernel. 
 
 <details>
 <summary>some logs</summary>
-I think there are still more motivations and insights of the proposed the SSM that can be digged. How is it linked with the neural network and deep learning should be explored more. At least at this stage (reading this paper and relevant papers) I do not have a good understanding about the SSM and its link to neural networks.
+I think there are still more motivations and insights of the proposed the SSM that can be digged. How is it linked with the neural network and deep learning should be explored more. At least at this stage (reading this paper and relevant papers), <b>I do not have a good understanding about the SSM and its link to neural networks.</b><br>
 
-The connection between continuous-time SSM to discrete-time SSM, trade-off, limitations, properties are assumed to be discussed in previous literatures, such as this one <d-cite key="tustin1947method"></d-cite> cited in paper. But it may not be that critical.
+The connection between continuous-time SSM to discrete-time SSM, trade-off, limitations, properties are assumed to be discussed in previous literatures, such as this one <d-cite key="tustin1947method"></d-cite> cited in paper. But it may not be that critical.<br>
 
+<b>Another question is that why the original discrete-time SSM does not have a same computational problem.</b> Why does not original discreate-time SSM propose the efficient algorithm? What are the differences between the discrete-time SSM and its usage in the neural networks?
 </details>
 
 ## D1
-
-This is a well-written paper. I believe it can be used as an good example for scientific writing. It is worth analysing the structure when comes to writing a paper. Even though many details are quite hard to understand and need more readings of other related materials, the essence of this paper is well emphasized to grasp.
 
 Fund the relavent papers from the same group are [Combining recurrent, convolutional, and continuous-time models with linear state space layers](https://proceedings.neurips.cc/paper_files/paper/2021/file/05546b0e38ab9175cd905eebcc6ebb76-Paper.pdf) <d-cite key="gu2021combining"></d-cite> (which proposed the LSSL), and [Hippo: Recurrent memory with optimal polynomial projections](https://proceedings.neurips.cc/paper/2020/file/102f0bb6efb3a6128a3c750dd16729be-Paper.pdf) <d-cite key="gu2020hippo"></d-cite> (which proposed the HiPPO). For application, the one [It’s raw! audio generation with state-space models](https://proceedings.mlr.press/v162/goel22a/goel22a.pdf)<d-cite key="goel2022s"></d-cite> is a very interesting one to read.
 
@@ -123,5 +128,49 @@ The Eq. $$\eqref{eq:ssm}$$ becomes,
 **Note that $$ \mathbf{D}u(t) $$ is omitted for simplicity.**
 >the state equation is now a recurrence in $$x_{k}$$, allowing the discrete SSM to be computed like an RNN. Concretely, $$ x_{k} \in \mathbb{R}^{N} $$ can be viewed as a hidden state with transition matrix $$\mathbf{A} $$.
 
-<!-- ### Convolutional representation -->
+## D3
 
+### Convolutional representation
+
+The contribution of the paper lies on how authors proposed to efficiently train/compute the convolutional representation of the SSM. It reasons as follow,
+
+<div class="col-sm mt-3 mt-md-0">
+    {% include figure.html path="assets/img/1Paper-7D/ssm_long_sequence/ssm-conv-rep.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+</div>
+
+where $$ \bar{\mathbf{K}} $$ is refered as **SSM convolution kernel**, but it is non-trivial to calculate.
+
+As can be seen in Eq. (4-5) in the paper, the computation reqires repeating multiplication by $$ \bar{\mathbf{A}} $$, which motivates the authors to select structured, canonical format $$ \bar{\mathbf{A}} $$. However, naive converting it to diagonal matrix is not practical still. Instead, authors made the obervation that the HiPPO matrix can be decomposed as the *sum of a normal and low-rank matri* and then applying spectral theorem of linear algebra.<mark>The reasons will need more readings.</mark> 
+
+From a rough reading and thinking, the solution combines converting $$ \bar{\mathbf{A}} $$ into a perticular form through using unitary $$\mathbf{V}$$, diagonal $$\mathbf{\Lambda}$$, and low-rank factorization $$\mathbf{P}$$, $$\mathbf{Q}$$. And using **Cauchy kernel** to compute the repeating computation of matrix $$ \bar{\mathbf{A}} $$.
+
+<details>
+<summary>Algorithm detail</summary>
+<div class="col-sm mt-3 mt-md-0">
+    {% include figure.html path="assets/img/1Paper-7D/ssm_long_sequence/ssm-algorithm-reasoning-text.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+</div>
+<div class="col-sm mt-3 mt-md-0">
+    {% include figure.html path="assets/img/1Paper-7D/ssm_long_sequence/ssm-algorithm.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+</div>
+</details>
+
+### S4 algorithms
+
+The paper reached 4 theorms that smmarize the importance of the paper. 
+<details>
+<summary>Theorem</summary>
+<div class="col-sm mt-3 mt-md-0">
+    {% include figure.html path="assets/img/1Paper-7D/ssm_long_sequence/ssm-theorem-1.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+</div>
+<div class="col-sm mt-3 mt-md-0">
+    {% include figure.html path="assets/img/1Paper-7D/ssm_long_sequence/ssm-theorem-2.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+</div>
+<div class="col-sm mt-3 mt-md-0">
+    {% include figure.html path="assets/img/1Paper-7D/ssm_long_sequence/ssm-theorem-3.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+</div>
+</details>
+
+<details>
+<summary>Question about backpropagate</summary>
+The algorithm listed in the paper is forwarding. How does the part of backprogagation looks like? Is it feasible? How the computations looks like? From the experiments, the backpropagation is solved without mentioning. Does it automatically solved by auto gradient in toolkit like PyTorch?
+</details>

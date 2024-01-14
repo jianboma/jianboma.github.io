@@ -60,11 +60,14 @@ This is a well-written paper. I believe it can be used as an good example for sc
 Authors proposed an efficient sequence modeling method called Structured State Spaces Model (S3 model), which inspired from state spaces model. The abstract of the paper capture the essence of the paper and directly quoted here,
 > A promising recent approach proposed modeling sequences by simulating the fundamental state space model (SSM) $$x^{'}(t) = Ax(t) + Bu(t)$$, $$y(t) = Cx(t) + Du(t)$$, and showed that for appropriate choices of the state matrix $$A$$, this system could handle long-range dependencies mathematically and empirically. However, this method has prohibitive computation and memory requirements, rendering it infeasible as a general sequence modeling solution. We propose the Structured State Space (S4) sequence model based on a new parameterization for the SSM, and show that it can be computed much more efficiently than prior approaches while preserving their theoretical strengths. Our technique involves conditioning A with a low-rank correction, allowing it to be diagonalized stably and reducing the SSM to the well-studied computation of a Cauchy kernel. 
 
+The annotated S4 is a good reference. https://srush.github.io/annotated-s4/
 <details>
 <summary>some logs</summary>
 I think there are still more motivations and insights of the proposed the SSM that can be digged. How is it linked with the neural network and deep learning should be explored more. At least at this stage (reading this paper and relevant papers), <b>I do not have a good understanding about the SSM and its link to neural networks.</b><br>
 
 The connection between continuous-time SSM to discrete-time SSM, trade-off, limitations, properties are assumed to be discussed in previous literatures, such as this one <d-cite key="tustin1947method"></d-cite> cited in paper. But it may not be that critical.<br>
+
+What is the kind of inductive bias that the model introduced? <br>
 
 <b>Another question is that why the original discrete-time SSM does not have a same computational problem.</b> Why does not original discreate-time SSM propose the efficient algorithm? What are the differences between the discrete-time SSM and its usage in the neural networks?
 </details>

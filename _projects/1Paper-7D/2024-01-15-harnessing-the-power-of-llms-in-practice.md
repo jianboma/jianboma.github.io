@@ -57,7 +57,6 @@ This is a survey paper and it's included because it gives good overview of the c
 <!-- ## TL;DR -->
 
 ## D1 practical guide for models
-![](2024-01-15-08-29-05.png)
 <div class="col-sm mt-3 mt-md-0">
     {% include figure.html path="assets/img/1Paper-7D/yang2023harnessing/yang2023harnessing-evolutionary-tree-of-modern-LLMs.png" class="img-fluid rounded z-depth-1" zoomable=true %}
 </div>
@@ -68,4 +67,20 @@ Authors divided the LLMs into two categories: `encoder-decoder or encoder-only`,
 Some models:
 - BERT <d-cite key="devlin2018bert"></d-cite>, proposed the Masked Language Models (MLM) that predict the masked region considering the surrounding context. 
 - GPT-3 <d-cite key="brown2020language"></d-cite>, using the Autoregressive alanuage Models (predict next word using preceding words), demonstrated reasonable few-/zero-shot performance via prompting and in-context learning.
+
+## D2 
+### practical guide for data
+LLMs at least have two stages: pre-training and fine-tuning stage.
+- **pretraining data**: this data contains large amount of categories with huge amount of data for pretraining. It includes books, articles, and websites. The quality, quantitative and diversity of this data inflence the performance of LLMs significantly. `the selection of LLMs highly depends on the components of the pretraining data ... code execution and code completion capabilities of GPT-3.5 (code-davinci-002) are amplified by the integration of code data in its pretraining dataset. In brief, when selecting LLMs for downstream tasks, it is advisable to choose the model pre-trained on a similar field of data.`
+- **fine-tuning data**: the author further divided it into three scenario:
+    - <mark>zero annotated data</mark>: there is not much information in the manuscript. It just gives praise to the zero-shot performance of LLMs.
+    - <mark>few annotated data</mark>: Few annotated data is quite useful. The few-shot examples are directly incorporated in the input prompt of LLMs. The `in-context learning` is effective to make the LLMs to generalize to the task. 
+    - <mark>abundant annotated data</mark>: task specific. Both fine-tuned models and LLMs can be considered. Fine-tuning the model might be cheaper.
+
+### practical guide for NLP task
+<div class="col-sm mt-3 mt-md-0">
+    {% include figure.html path="assets/img/1Paper-7D/yang2023harnessing/yang2023harnessing-nlp-task.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+</div>
+
+
 

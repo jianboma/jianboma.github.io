@@ -5,6 +5,7 @@
 bundle install
 # assuming pip is your Python package manager
 pip install jupyter
+conda activate torch19py38 # activate your python virtual environment
 bundle exec jekyll serve --lsi
 ```
 

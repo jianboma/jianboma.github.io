@@ -83,7 +83,8 @@ booktitle = "International Conference on Learning Representations",
 </details>
 
 
-
+<br>
+<br>
 [Vision Mamba Efficient Visual Representation Learning with Bidirectional State Space Model](https://arxiv.org/abs/2401.09417)<br>
 [github_link](https://github.com/hustvl/Vim)<br>
 
@@ -108,7 +109,8 @@ booktitle = "International Conference on Learning Representations",
   </div>
 </details>
 
-
+<br>
+<br>
 [VMamba Visual State Space Model](https://arxiv.org/abs/2401.09417)<br>
 [github_link](https://github.com/MzeroMiko/VMamba)<br>
 
@@ -129,5 +131,50 @@ booktitle = "International Conference on Learning Representations",
   <div class="col-sm mt-3 mt-md-0">
   The figure is from the paper. All rights reserved to its owner.
     {% include figure.html path="assets/img/quick-paper-share/zhu2024vision-overview.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+  </div>
+</details>
+<br>
+<br>
+[BLIP-2: Bootstrapping Language-Image Pre-training with Frozen Image Encoders and Large Language Models](https://arxiv.org/abs/2301.12597)<br>
+[github_link](https://github.com/salesforce/LAVIS/tree/main/projects/blip2)<br>
+
+**Category**: vision language model
+```
+@article{li2023blip,
+  title={Blip-2: Bootstrapping language-image pre-training with frozen image encoders and large language models},
+  author={Li, Junnan and Li, Dongxu and Savarese, Silvio and Hoi, Steven},
+  journal={arXiv preprint arXiv:2301.12597},
+  year={2023}
+}
+```
+<details>
+  <summary>Details</summary>
+  <b>Authors</b>:  <br>
+  <b>Date</b>: Jun 2023 <br>
+  <b>#Citations</b>:   <br>
+  <div class="col-sm mt-3 mt-md-0">
+  The figure is from the paper. All rights reserved to its owner.
+    {% include figure.html path="assets/img/quick-paper-share/li2023blip-overview.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+  </div>
+</details>
+<br>
+
+## 2024-02-04
+
+[OLMo Accelerating the Science of Language Models](https://allenai.org/olmo/olmo-paper.pdf)<br>
+[github_link](https://github.com/allenai/OLMo)<br>
+
+**Category**: Large language model, open-source
+```
+Technical report
+```
+<details>
+  <summary>Details</summary>
+  <b>Authors</b>:  <br>
+  <b>Date</b>: Feb 2024 <br>
+  <b>#Citations</b>:   <br>
+  <div class="col-sm mt-3 mt-md-0">
+  The figure is from https://github.com/allenai/OLMo. All rights reserved to its owner.
+    {% include figure.html path="assets/img/quick-paper-share/olmo-icon.png" class="img-fluid rounded z-depth-1" zoomable=true %}
   </div>
 </details>

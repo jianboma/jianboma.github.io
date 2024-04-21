@@ -5,7 +5,7 @@ permalink: /projects/
 description: Describe projects
 nav: true
 nav_order: 2
-display_categories: [1Paper-7D, learning, work, fun]
+display_categories: [1Paper-7D, Fast-read, work, fun]
 horizontal: false
 ---
 

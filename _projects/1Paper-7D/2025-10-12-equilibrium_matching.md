@@ -2,7 +2,7 @@
 layout: distill
 title: Equilibrium Matching Generative Modeling with Implicit Energy-Based Models
 description: 
-img: assets/img/1Paper-7D/equilibrium_matching/EqM.png
+img: # assets/img/1Paper-7D/equilibrium_matching/EqM.png
 importance: 1
 category: 1Paper-7D
 bibliography: 2025-10-12-equilibrbrium_matching.bib
@@ -49,6 +49,11 @@ _styles: >
 **Homepage**: [https://raywang4.github.io/equilibrium_matching/](https://raywang4.github.io/equilibrium_matching/) <br>
 Paper link: [https://arxiv.org/abs/2510.02300](https://arxiv.org/abs/2510.02300)<br>
 Code: [https://github.com/raywang4/EqM](https://github.com/raywang4/EqM)
+
+<div class="col-sm mt-3 mt-md-0">
+    {% include figure.html path="assets/img/1Paper-7D/equilibrium_matching/EqM_2.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+</div>
+
 <!-- ## TL;DR -->
 
 ### Background

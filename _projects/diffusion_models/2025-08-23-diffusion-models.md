@@ -2,7 +2,7 @@
 layout: distill
 title: Diffusion models
 description:
-img:
+img: assets/img/diffusion_models/diffusion_img1.png
 importance: 1
 category: generative_models
 bibliography: videoGen.bib
@@ -22,7 +22,9 @@ bibliography: videoGen.bib
 #   - name: D2
 #     subsections:
 #     - name: Zero-shot
-
+toc:
+  - name: Diffusion-based models
+  - name: DDPM
 
 
 # Below is an example of injecting additional post-specific styles.
@@ -55,8 +57,9 @@ Diffusion-based techniques have become foundational in image, video generation a
 [Figure 1](#fig: diffusion_literature) presents a chronological overview of the most influential works in diffusion models, covering literature up to 2024. This field is rapidly evolving. Broadly, diffusion-based models can be categorized into three main groups: score matching (SM) methods, denoising diffusion probabilistic models (DDPM), and flow matching (FM). Despite differences in formulation, these approaches share the format of iterative generation process, and they are collectively referred to as diffusion-based models. Early models operated directly in the original signal space (e.g., pixel space for images), while latent diffusion models (LDM)<d-cite key="rombach2022high"></d-cite> build upon this foundation by operating in a compressed latent space produced by an autoencoder<d-cite key="esser2021taming"></d-cite>. This two-stages model enjoys more computational efficiency and is applied in many modern diffusion-based models. Since diffusion-based models typically require many inference steps, reducing the number of function evaluations (NFE) also remains an active and important area of research.
 
 ### DDPM
+
 Denoising Diffusion Probabilistic Models (DDPM), introduced in <d-cite key="ho2020denoising"></d-cite> that improves from  <d-cite key="sohl2015deep"></d-cite>, are built upon a two-step process: a forward (diffusion) process and a reverse (denoising) process. In the forward process, an image sampled from the (unknown) data distribution is gradually transformed into a simple, tractable distribution—typically a standard Gaussian—by incrementally adding small amounts of Gaussian noise at each step. This process is modeled as a Markov chain.
 
-The reverse process begins by sampling from this simple (source) distribution and then iteratively removes noise, conditioning each step on the output of the previous one to reconstruct a data sample. Theoretically, as shown in <d-cite key="sohl2015deep"></d-cite>, the true posterior of the forward process, $$p(x_{t-1}|x_t)$$, is unknown, which makes direct sampling challenging. However, when the added noise at each step is sufficiently small, the posterior can be well-approximated by a conditional Gaussian distribution.
+The reverse process begins by sampling from this simple (source) distribution and then iteratively removes noise, conditioning each step on the output of the previous one to reconstruct a data sample. Theoretically, as shown in <d-cite key="sohl2015deep"></d-cite>, the true posterior of the forward process, $$p(x_{t-1} \mid x_t)$$, is unknown, which makes direct sampling challenging. However, when the added noise at each step is sufficiently small, the posterior can be well-approximated by a conditional Gaussian distribution.
 
-To address the unknown posterior, DDPMs use a parameterized model, $p_{\theta}(x_{t-1}|x_t)$, to learn the reverse transitions. The training objective, as described in Equation (5) of <d-cite key="ho2020denoising"></d-cite>, is to match the model to the true posterior $q(x_{t-1}|x_t, x_0)$, which is conditioned on both the current and original data points. Importantly, while the true posterior probability is unknown, $q(x_{t-1}|x_t, x_0)$ has a closed-form solution, provided in Equations (6) and (7) of <d-cite key="ho2020denoising"></d-cite>, enabling efficient training of the model.
+To address the unknown posterior, DDPMs use a parameterized model, $$p_{\theta}(x_{t-1} \mid x_t)$$, to learn the reverse transitions. The training objective, as described in Equation (5) of <d-cite key="ho2020denoising"></d-cite>, is to match the model to the true posterior $$q(x_{t-1} \mid x_t, x_0)$$, which is conditioned on both the current and original data points. Importantly, while the true posterior probability is unknown, $$q(x_{t-1} \mid x_t, x_0)$$ has a closed-form solution, provided in Equations (6) and (7) of <d-cite key="ho2020denoising"></d-cite>, enabling efficient training of the model.

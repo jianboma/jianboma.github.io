@@ -2,10 +2,10 @@
 layout: page
 title: Projects
 permalink: /projects/
-description: Describe projects
+description: Explore a collection of my research, reading, and fun coding projects.
 nav: true
 nav_order: 2
-display_categories: [generative_models, 1Paper-7D, Fast-read, work, fun]
+display_categories: [generative_models, Conversational_AI, 1Paper-7D, Fast-read]
 horizontal: false
 ---
 
@@ -62,7 +62,7 @@ horizontal: false
 {%- endif -%}
 </div>
 
-## Candidate papers to read
+<!-- ## Candidate papers to read
 - [ ] [Mamba: Linear-Time Sequence Modeling with Selective State Spaces](https://arxiv.org/abs/2312.00752)
       <details>
         <summary>Details</summary>
@@ -99,7 +99,7 @@ horizontal: false
       </details>
 
 - [ ] [Animate Anyone: Consistent and Controllable Image-to-Video Synthesis for Character Animation](https://arxiv.org/abs/2311.17117)
-      
+       -->
 
 
 

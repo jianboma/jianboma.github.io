@@ -5,7 +5,7 @@ permalink: /projects/
 description: Explore a collection of my research, reading, and fun coding projects.
 nav: true
 nav_order: 2
-display_categories: [generative_models, Conversational_AI, 1Paper-7D, Fast-read]
+display_categories: [generative_models, Conversational_AI, 1Paper-7D, wukong-quick-summary, Fast-read]
 horizontal: false
 ---
 

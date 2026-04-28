@@ -1,0 +1,30 @@
+<!-- _includes/think.html -->
+<div class="grid-sizer"></div>
+<div class="grid-item">
+  {% if thought.redirect -%}
+  <a href="{{ thought.redirect }}">
+  {%- else -%}
+  <a href="{{ thought.url | relative_url }}">
+  {%- endif %}
+    <div class="card hoverable">
+      {%- if thought.img %}
+      {%- include figure.html
+        path=thought.img
+        alt="thought thumbnail" -%}
+      {%- endif %}
+      <div class="card-body">
+        <h2 class="card-title text-lowercase">{{ thought.title }}</h2>
+        <p class="card-text">{{ thought.description }}</p>
+        <div class="row ml-1 mr-1 p-0">
+          {%- if thought.tags %}
+          <div class="tags">
+            {%- for tag in thought.tags %}
+            <span class="tag badge">{{ tag }}</span>
+            {%- endfor %}
+          </div>
+          {%- endif %}
+        </div>
+      </div>
+    </div>
+  </a>
+</div>

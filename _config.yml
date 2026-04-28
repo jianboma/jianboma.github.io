@@ -170,6 +170,9 @@ collections:
   projects:
     output: true
     permalink: /projects/:path/
+  thoughts:
+    output: true
+    permalink: /thoughts/:path/
 
 announcements:
   enabled: true

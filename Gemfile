@@ -20,6 +20,7 @@ group :jekyll_plugins do
     gem 'mini_racer' # (0.4.0) https://stackoverflow.com/questions/72759057/error-from-bundle-install-an-error-occured-while-installing-mini-racer-0-6-2
     gem 'unicode_utils'
     gem 'webrick'
+    gem 'ostruct'
 end
 group :other_plugins do
     gem 'feedjira'

@@ -4,6 +4,7 @@ title: "AI 科学家：从辅助到自主的演进"
 description: "自动做研究不再只是科幻——当前 AI Agent 系统的全景图与未来展望"
 importance: 1
 category: AutoResearch
+display_on_home: false
 bibliography: auto_research.bib
 
 toc:

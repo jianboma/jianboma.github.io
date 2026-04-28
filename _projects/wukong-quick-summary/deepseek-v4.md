@@ -4,6 +4,7 @@ title: "DeepSeek V4：开源大模型新王者的实力与野望"
 description: "参数规模最大、性价比最高的开源模型来了——但它真的能撼动 Anthropic 和 OpenAI 的地位吗？"
 importance: 1
 category: Wukong-Quick-Summary
+display_on_home: false
 
 bibliography: deepseek-v4.bib
 
